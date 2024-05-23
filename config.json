@@ -1,0 +1,407 @@
+{
+  "api": {
+    "tag": "api",
+    "services": [
+      "HandlerService",
+      "LoggerService",
+      "StatsService"
+    ]
+  },
+  "stats": {},
+  "policy": {
+    "levels": {
+      "0": {
+        "statsUserUplink": true,
+        "statsUserDownlink": true
+      }
+    },
+    "system": {
+      "statsInboundUplink": true,
+      "statsInboundDownlink": true,
+      "statsOutboundUplink": true,
+      "statsOutboundDownlink": true
+    }
+  },
+  "dns": {
+    "servers": [
+      "https+local://94.140.15.15/dns-query",
+      "94.140.14.14",
+      "94.140.15.15"
+    ]
+  },
+  "inbounds": [
+        {
+            "port": 443,
+            "protocol": "trojan",
+            "settings": {
+                "clients": [
+                    {
+                        "password": "62483618-9f36-4a07-a630-c02d7eeaaa0d","flow": "xtls-rprx-direct","email": "bawaantrojantcp"
+#trojan
+### klkl 2024-06-03
+},{"password": "klkl","flow": "xtls-rprx-direct","email": "trojantcp-klkl"
+                   }
+                ],
+		"decryption": "none",
+		"fallbacks": [
+			{
+				"dest": "/dev/shm/default.sock",
+				"xver": 1
+			},
+			{
+				"alpn": "h2",
+				"dest": "/dev/shm/h2c.sock",
+				"xver": 1
+			},
+			{
+				"path": "/trojan",
+				"dest": 2001,
+				"xver": 1
+			},
+			{
+				"path": "/vmess",
+				"dest": 2002,
+				"xver": 1
+			},
+			{
+				"path": "/ss",
+				"dest": 2003,
+				"xver": 1
+			},
+			{
+				"path": "/vless",
+				"dest": 2004,
+				"xver": 1
+          }
+        ]
+      },
+    "streamSettings": {
+        "network": "tcp",
+        "security": "xtls",
+        "xtlsSettings": {
+	  	"alpn":["h2", "http/1.1"],
+          "minVersion": "1.2",
+          "cipherSuites": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+          "certificates": [
+            {
+              "ocspStapling": 3600,
+              "certificateFile": "/usr/local/etc/xray/xray.crt",
+              "keyFile": "/usr/local/etc/xray/xray.key",
+			  "usage": "encipherment"
+            }
+          ]
+        }
+      },
+	   "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    },
+    {
+            "port": 2001,
+            "listen": "127.0.0.1",
+            "protocol": "trojan",
+            "settings": {
+                "clients": [
+                    {
+                        "password" : "62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaantrws"
+#ws
+### klkl 2024-06-03
+},{"password": "klkl","email": "trojanws-klkl"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "acceptProxyProtocol" : true,
+                    "path" : "/trojan"
+                }
+			},
+	"sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    },
+   {
+      "listen": "127.0.0.1",
+      "port": 31304,
+      "protocol": "trojan",
+      "settings": {
+        "clients": [
+          {
+            "password":"62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaantrgrpc"
+#trgrpc
+### klkl 2024-06-03
+},{"password": "klkl","email": "trojangrpc-klkl"
+          }
+                ],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "dest": 885
+                    }
+                ]
+            },
+		"streamSettings": {
+        	"network": "grpc",
+        	"grpcSettings": {
+        	"serviceName": "Trojan-GRPC",
+			    "acceptProxyProtocol": true,
+			    "multiMode": true
+        	}
+       },
+        "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+	  	  ]
+        }
+      },
+    {
+      "listen": "127.0.0.1",
+      "port": 56802,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+	{
+            "id":"62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaanvmgrpc"
+#vmgrpc
+
+          }
+                ],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "dest": 885
+                    }
+                ]
+            },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "none",
+        "grpcSettings": {
+          "acceptProxyProtocol": true,
+          "serviceName": "Vmess-GRPC",
+          "multiMode": true
+        }
+      },
+	"sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+          ]
+        }
+      },
+      {
+            "port": 2002,
+            "listen": "127.0.0.1",
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id" : "62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaanvmws"
+#vmess
+
+                   }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "acceptProxyProtocol" : true,
+                    "path" : "/vmess"
+                     }
+		},
+	"sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+          ]
+       }
+    },
+	{
+            "port": 2004,
+            "listen": "127.0.0.1",
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaanvlws"
+#vless
+
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "acceptProxyProtocol": true,
+                    "path": "/vless"
+                }
+            },
+		"sniffing": {
+        "enabled": true,
+        "destOverride": [
+	  	  "http",
+          "tls"
+        ]
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 56803,
+      "protocol": "vless",
+      "settings": {
+		"clients": [
+		{
+            "id":"62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaanvlgrpc"
+#vlgrpc
+
+          }
+                ],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "dest": 885
+                    }
+                ]
+            },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "none",
+        "grpcSettings": {
+          "acceptProxyProtocol": true,
+          "serviceName": "Vless-GRPC",
+          "multiMode": true
+        }
+      },
+	"sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+          ]
+        }
+      },
+    {
+      "tag": "api",
+      "listen": "127.0.0.1",
+      "port": 47466,
+      "protocol": "dokodemo-door",
+       "settings": {
+                     "address": "127.0.0.1"
+                        }
+                }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct"
+    },
+    {
+      "protocol": "socks",
+      "settings": {
+         "servers": [{
+            "address": "127.0.0.1",
+            "port": 40000
+         }]
+      },
+      "tag": "warp"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "type": "field"
+      },
+      {
+        "type": "field",
+        "outboundTag": "warp",
+        "domain": [
+                "geosite:netflix",
+                "geosite:instagram",
+                "geosite:youtube",
+                "geosite:google",
+                "geosite:openai",
+                "geosite:spotify",
+                "geosite:facebook",
+                "geosite:meta",
+                "geoip:google",
+                "youtube.com",
+                "facebook.com",
+                "meta.com",
+                "instagram.com",
+                "openai.com",
+                "windscribe.com",
+                "spotify.com",
+                "googlevideo.com",
+                "ai.com"
+        ]
+      },
+      {
+        "protocol": [
+          "bittorrent"
+        ],
+        "type": "field",
+        "outboundTag": "blocked"
+      },
+      {
+        "type": "field",
+        "outboundTag": "blocked",
+        "domain": [
+                "geoip:ir",
+                "geoip:cn",
+                "ext:iran.dat:ir",
+                "regexp:.*\\.ir$",
+                "geosite:category-travel-ir",
+                "geosite:category-media-ir",
+                "geosite:category-scholar-ir",
+                "geosite:category-tech-ir",
+                "geosite:category-bank-ir",
+                "geosite:category-payment-ir",
+                "geosite:category-bourse-ir",
+                "geosite:category-shopping-ir",
+                "geosite:category-education-ir",
+                "geosite:category-insurance-ir",
+                "geosite:category-social-media-ir",
+                "geosite:category-news-ir",
+                "geosite:category-forums-ir",
+                "geosite:category-ads-ir",
+                "geosite:category-gov-ir",
+                "geosite:category-ir",
+                "ext:iran.dat:ads",
+                "ext:iran.dat:other"
+        ],
+        "ip": [
+            "geoip:private",
+            "geoip:ir",
+            "geoip:cn",
+            "geoip:ru"
+        ]
+      }
+    ]
+  }
+}
