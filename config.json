@@ -30,282 +30,45 @@
     ]
   },
   "inbounds": [
-        {
-            "port": 443,
-            "protocol": "trojan",
-            "settings": {
-                "clients": [
-                    {
-                        "password": "62483618-9f36-4a07-a630-c02d7eeaaa0d","flow": "xtls-rprx-direct","email": "bawaantrojantcp"
-#trojan
-### klkl 2024-06-03
-},{"password": "klkl","flow": "xtls-rprx-direct","email": "trojantcp-klkl"
-                   }
-                ],
-		"decryption": "none",
-		"fallbacks": [
-			{
-				"dest": "/dev/shm/default.sock",
-				"xver": 1
-			},
-			{
-				"alpn": "h2",
-				"dest": "/dev/shm/h2c.sock",
-				"xver": 1
-			},
-			{
-				"path": "/trojan",
-				"dest": 2001,
-				"xver": 1
-			},
-			{
-				"path": "/vmess",
-				"dest": 2002,
-				"xver": 1
-			},
-			{
-				"path": "/ss",
-				"dest": 2003,
-				"xver": 1
-			},
-			{
-				"path": "/vless",
-				"dest": 2004,
-				"xver": 1
-          }
-        ]
+    {
+      "listen": "127.0.0.1",
+      "port": 10085,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1"
       },
-    "streamSettings": {
-        "network": "tcp",
-        "security": "xtls",
-        "xtlsSettings": {
-	  	"alpn":["h2", "http/1.1"],
-          "minVersion": "1.2",
-          "cipherSuites": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
-          "certificates": [
-            {
-              "ocspStapling": 3600,
-              "certificateFile": "/usr/local/etc/xray/xray.crt",
-              "keyFile": "/usr/local/etc/xray/xray.key",
-			  "usage": "encipherment"
-            }
-          ]
-        }
-      },
-	   "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      }
+      "tag": "api"
     },
     {
-            "port": 2001,
-            "listen": "127.0.0.1",
-            "protocol": "trojan",
-            "settings": {
-                "clients": [
-                    {
-                        "password" : "62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaantrws"
-#ws
-### klkl 2024-06-03
-},{"password": "klkl","email": "trojanws-klkl"
-                    }
-                ]
-            },
-            "streamSettings": {
-                "network": "ws",
-                "security": "none",
-                "wsSettings": {
-                    "acceptProxyProtocol" : true,
-                    "path" : "/trojan"
-                }
-			},
-	"sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      }
-    },
-   {
-      "listen": "127.0.0.1",
-      "port": 31304,
-      "protocol": "trojan",
+      "port": 28944,
+      "protocol": "vless",
       "settings": {
         "clients": [
           {
-            "password":"62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaantrgrpc"
-#trgrpc
-### klkl 2024-06-03
-},{"password": "klkl","email": "trojangrpc-klkl"
+            "id": "UUID1",
+            "level": 1,
+            "alterId": 0
+          },
+          {
+            "id": "UUID2",
+            "level": 1,
+            "alterId": 0
           }
-                ],
-                "decryption": "none",
-                "fallbacks": [
-                    {
-                        "dest": 885
-                    }
-                ]
-            },
-		"streamSettings": {
-        	"network": "grpc",
-        	"grpcSettings": {
-        	"serviceName": "Trojan-GRPC",
-			    "acceptProxyProtocol": true,
-			    "multiMode": true
-        	}
-       },
-        "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-	  	  ]
-        }
+        ],
+        "decryption": "none"
       },
-    {
       "listen": "127.0.0.1",
-      "port": 56802,
-      "protocol": "vmess",
-      "settings": {
-        "clients": [
-	{
-            "id":"62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaanvmgrpc"
-#vmgrpc
-
-          }
-                ],
-                "decryption": "none",
-                "fallbacks": [
-                    {
-                        "dest": 885
-                    }
-                ]
-            },
       "streamSettings": {
-        "network": "grpc",
-        "security": "none",
-        "grpcSettings": {
-          "acceptProxyProtocol": true,
-          "serviceName": "Vmess-GRPC",
-          "multiMode": true
-        }
+        "network": "ws"
       },
-	"sniffing": {
+      "sniffing": {
         "enabled": true,
         "destOverride": [
           "http",
-          "tls"
-          ]
-        }
-      },
-      {
-            "port": 2002,
-            "listen": "127.0.0.1",
-            "protocol": "vmess",
-            "settings": {
-                "clients": [
-                    {
-                        "id" : "62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaanvmws"
-#vmess
-
-                   }
-                ]
-            },
-            "streamSettings": {
-                "network": "ws",
-                "security": "none",
-                "wsSettings": {
-                    "acceptProxyProtocol" : true,
-                    "path" : "/vmess"
-                     }
-		},
-	"sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-          ]
-       }
-    },
-	{
-            "port": 2004,
-            "listen": "127.0.0.1",
-            "protocol": "vless",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaanvlws"
-#vless
-
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "ws",
-                "security": "none",
-                "wsSettings": {
-                    "acceptProxyProtocol": true,
-                    "path": "/vless"
-                }
-            },
-		"sniffing": {
-        "enabled": true,
-        "destOverride": [
-	  	  "http",
           "tls"
         ]
-      }
-    },
-    {
-      "listen": "127.0.0.1",
-      "port": 56803,
-      "protocol": "vless",
-      "settings": {
-		"clients": [
-		{
-            "id":"62483618-9f36-4a07-a630-c02d7eeaaa0d","email": "bawaanvlgrpc"
-#vlgrpc
-
-          }
-                ],
-                "decryption": "none",
-                "fallbacks": [
-                    {
-                        "dest": 885
-                    }
-                ]
-            },
-      "streamSettings": {
-        "network": "grpc",
-        "security": "none",
-        "grpcSettings": {
-          "acceptProxyProtocol": true,
-          "serviceName": "Vless-GRPC",
-          "multiMode": true
-        }
-      },
-	"sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-          ]
-        }
-      },
-    {
-      "tag": "api",
-      "listen": "127.0.0.1",
-      "port": 47466,
-      "protocol": "dokodemo-door",
-       "settings": {
-                     "address": "127.0.0.1"
-                        }
-                }
+    }
+  }
   ],
   "outbounds": [
     {
